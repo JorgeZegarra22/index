@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizador de Datos Firebase</title>
+  <script type="module">
+    // Importar Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    // Configuración de tu proyecto Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCYowra-C0BewBkIfqHP49zt-qYv1DeCGY",
+      authDomain: "clinica-86f43.firebaseapp.com",
+      databaseURL: "https://clinica-86f43-default-rtdb.firebaseio.com",
+      projectId: "clinica-86f43",
+      storageBucket: "clinica-86f43.firebasestorage.app",
+      messagingSenderId: "697937129197",
+      appId: "1:697937129197:web:c4c301d886dd07b820a6e4",
+      measurementId: "G-FC5XKC7KJH"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Escuchar cambios en la raíz
+    const dbRef = ref(db, "/");
+
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      const pre = document.getElementById("output");
+      pre.textContent = JSON.stringify(data, null, 2); // Mostrar como JSON
+    });
+  </script>
+</head>
+<body>
+  <h1>📊 Visualización de Datos Firebase</h1>
+  <pre id="output">Cargando datos...</pre>
+</body>
+</html>
